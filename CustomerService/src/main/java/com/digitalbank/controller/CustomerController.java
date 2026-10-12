@@ -54,18 +54,19 @@ public class CustomerController {
     }
 
 
-    @PatchMapping("/customers/{id}/kyc-status")
-    public ResponseEntity<Void> updateKycStatus(
-            @PathVariable String id,
-            @RequestBody UpdateKycStatusRequest request) {
+//    @PatchMapping("/customers/{id}/kyc-status")
+//    public ResponseEntity<Void> updateKycStatus(
+//            @PathVariable String id,
+//            @RequestBody UpdateKycStatusRequest request) {
+//
+//        Integer newVersion = service.updateKycStatus(id, request.getKycStatus());
+//
+//        // ✅ Return 204 No Content, only ETag
+//        return ResponseEntity.noContent()
+//                .eTag("\"" + newVersion + "\"")
+//                .build();
+//    }
 
-        Integer newVersion = service.updateKycStatus(id, request.getKycStatus());
-
-        // ✅ Return 204 No Content, only ETag
-        return ResponseEntity.noContent()
-                .eTag("\"" + newVersion + "\"")
-                .build();
-    }
     private Integer parseIfMatch(String ifMatch) {
         if (ifMatch == null || ifMatch.isBlank()) return null;
         // Accept bare numbers (e.g. 3) or quoted ("3")

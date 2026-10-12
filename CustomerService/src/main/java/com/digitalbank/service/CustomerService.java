@@ -1,9 +1,6 @@
 package com.digitalbank.service;
 
-import com.digitalbank.dto.CustomerCreatedResponse;
-import com.digitalbank.dto.CustomerRequest;
-import com.digitalbank.dto.CustomerResponse;
-import com.digitalbank.dto.UpdateCustomerRequest;
+import com.digitalbank.dto.*;
 import com.digitalbank.exception.*;
 import com.digitalbank.model.Customer;
 import com.digitalbank.model.KycStatus;
@@ -91,4 +88,25 @@ public class CustomerService {
         Customer saved = repository.save(c); // Hibernate increments version
         return mapper.map(saved, CustomerCreatedResponse.class).getVersion();
     }
+
+//    public Integer updateKycStatus(String id, String kycStatus) {
+//        Customer c = repository.findByExternalId(id)
+//                .orElseThrow(() -> new ResourceNotFoundException("Customer not found with externalId: " + id));
+//
+//
+//        if ("VERIFIED".equalsIgnoreCase(kycStatus)) {
+//            CustomerRegistrationRequest request =
+//                    new CustomerRegistrationRequest(c.getEmail(), "default-password", c.getExternalId());
+//            authServiceClient.registerCustomer(request);
+//            c.setKycStatus(KycStatus.VERIFIED);
+//            c.setActive(true);
+//            repository.save(c);
+//        }
+//        return c.getVersion();
+//    }
+
+    public CustomerResponse getById(Long id) {
+        return repository.findById(id)
+                .map(i -> mapper.map(i, CustomerResponse.class))
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found with externalId: " + id));	}
 }
